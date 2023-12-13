@@ -1,0 +1,63 @@
+Problem Statement : Given a string s containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid.
+
+An input string is valid if:
+
+Open brackets must be closed by the same type of brackets.
+Open brackets must be closed in the correct order.
+Every close bracket has a corresponding open bracket of the same type.
+
+
+Example 1:
+
+Input: s = "()"
+Output: true
+Example 2:
+
+Input: s = "()[]{}"
+Output: true
+Example 3:
+
+Input: s = "(]"
+Output: false
+
+
+Constraints:
+
+1 <= s.length <= 104
+s consists of parentheses only '()[]{}'.
+
+Solution:
+
+Intuition
+The initial thoughts are to utilize a stack data structure to keep track of the opening brackets encountered while traversing the string. When encountering a closing bracket, the algorithm checks whether it matches the corresponding opening bracket at the top of the stack.
+
+Approach
+The approach employs a stack to manage opening brackets. When a closing bracket is encountered, it checks for a matching opening bracket at the top of the stack. If there's a match, it continues; otherwise, it returns false. Finally, it verifies if the stack is empty to ensure all brackets are closed properly.
+
+Complexity
+Time complexity: O(n)
+
+The algorithm iterates through the entire input string once, performing constant-time operations for each character.
+
+Space complexity: O(n)
+-Additional space is used for the stack, which could potentially hold all the opening brackets in the worst-case scenario, leading to linear space complexity with respect to the input string length.
+
+Code
+import java.util.*;
+class Solution {
+    public boolean isValid(String s) {
+        Stack<Character> st = new Stack();
+        for(char i:s.toCharArray()){
+            if(i == '(' || i == '{' || i == '['){
+                st.push(i);
+            }else {
+                if(st.isEmpty()) return false;
+                char c= st.pop();
+                if((i == ')' && c == '(') || (i == '}' && c == '{') || (i == ']' && c == '[')){
+                    continue;
+                }else return false;
+            }
+        }
+        return st.isEmpty();
+    }
+}
